@@ -1,28 +1,29 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import tw from "twrnc";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { images, STYLES, COLORS } from "resources";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = () => {
+  const navigation = useNavigation();
   return (
-    <View style={[styles.header, tw`px-5`]}>
+    <View style={[styles.header]}>
       <View style={{ flex: 1 }}>
         <Image source={images.logo} style={STYLES.headerLogo} />
       </View>
 
       <View style={styles.iconContainer}>
         <TouchableOpacity>
-          <Ionicons name="search" style={styles.icons} />
+          <Ionicons name="search-outline" style={styles.icons} />
         </TouchableOpacity>
 
         <TouchableOpacity>
           <MaterialCommunityIcons
-            name="message-text-outline"
+            name="comment-text-outline"
             style={styles.icons}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <MaterialCommunityIcons name="dots-vertical" style={styles.icons} />
         </TouchableOpacity>
       </View>
@@ -36,7 +37,9 @@ const styles = StyleSheet.create({
   header: {
     width: "100%",
     flexDirection: "row",
-    paddingVertical: 15,
+    paddingVertical: 14,
+    paddingHorizontal: 10,
+    // paddingLeft: 18,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.foitiGreyLight,
     justifyContent: "space-between",
@@ -49,8 +52,8 @@ const styles = StyleSheet.create({
   },
 
   icons: {
-    fontSize: 30,
+    fontSize: 25,
     color: COLORS.foitiGrey,
-    marginLeft: 10,
+    marginLeft: 20,
   },
 });

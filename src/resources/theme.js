@@ -50,7 +50,7 @@ export const STYLES = {
     fontWeight: "bold",
   },
   skipStatusBar: {
-    paddingTop: StatusBarHeight + 5,
+    paddingTop: StatusBarHeight,
     backgroundColor: "#fff",
   },
 };

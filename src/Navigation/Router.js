@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Login from "../screens/Login";
 import Register from "../screens/Register";
 import Welcome from "../screens/Welcome";
-import HomeNavigation from "./HomeNavigation";
+import DrawerNavigation from "./DrawerNavigation";
 
 const Stack = createStackNavigator();
 
@@ -15,7 +15,7 @@ export default function Router() {
         <Stack.Screen name="Register" component={Register} />
 
         <Stack.Screen name="Welcome" component={Welcome} />
-        <Stack.Screen name="Home Navigation" component={HomeNavigation} />
+        <Stack.Screen name="Home Navigation" component={DrawerNavigation} />
       </Stack.Navigator>
     </NavigationContainer>
   );
