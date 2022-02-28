@@ -7,7 +7,7 @@ const HomeHeader = () => {
   const navigation = useNavigation();
   return (
     <View style={[styles.header]}>
-      <View style={{ flex: 1 }}>
+      <View>
         <Image source={images.logo} style={STYLES.headerLogo} />
       </View>
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 10,
     // paddingLeft: 18,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.5,
     borderBottomColor: COLORS.foitiGreyLight,
     justifyContent: "space-between",
     alignItems: "center",

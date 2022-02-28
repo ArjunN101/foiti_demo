@@ -13,7 +13,6 @@ const DrawerNavigation = () => {
     <Drawer.Navigator
       drawerPosition="right"
       drawerType="front"
-      minSwipeDistance={500}
       screenOptions={{
         headerShown: false,
       }}

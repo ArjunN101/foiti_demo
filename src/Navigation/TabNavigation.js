@@ -3,6 +3,7 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/Home";
 import Explore from "../screens/Explore";
+import Search from "../screens/Search";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 const Tab = createBottomTabNavigator();
@@ -69,7 +70,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="New"
-        component={Explore}
+        component={Search}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -80,7 +81,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="Search"
-        component={Explore}
+        component={Search}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {
@@ -106,7 +107,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={Explore}
+        component={Search}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {

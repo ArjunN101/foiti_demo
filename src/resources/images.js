@@ -1,4 +1,4 @@
-const logo = require("../../assets/images/foiti.png");
+const logo = require("../../assets/images/foiti1.png");
 
 export default {
   logo,

@@ -1,9 +1,13 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-
 import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
+
+import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { COLORS } from "resources";
 import NavButton from "./NavButton";
 
@@ -19,16 +23,20 @@ const CustomDrawer = (props) => {
             borderBottomColor: COLORS.foitiGreyLight,
           }}
         >
-          <TouchableOpacity style={{ marginLeft: 10 }}>
-            <Image
-              source={{
-                uri: "https://randomuser.me/api/portraits/women/67.jpg",
-              }}
-              style={styles.avatar}
-            />
-            <Text style={styles.name}>Olivia Atkinson</Text>
-            <Text style={styles.username}>@OliviaAtkinsonOfficial</Text>
-          </TouchableOpacity>
+          <TouchableWithoutFeedback
+            onPress={() => console.log("Profile Pressed")}
+          >
+            <View style={{ marginLeft: 10 }}>
+              <Image
+                source={{
+                  uri: "https://randomuser.me/api/portraits/women/67.jpg",
+                }}
+                style={styles.avatar}
+              />
+              <Text style={styles.name}>Olivia Atkinson</Text>
+              <Text style={styles.username}>@OliviaAtkinsonOfficial</Text>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
         <View
           style={{

@@ -17,6 +17,11 @@ export const COLORS = {
   foitiLine: "#E5E5E5",
 };
 
+export const FOITI_CONTS = {
+  padding: 10,
+  iconSize: 18,
+};
+
 export const STYLES = {
   logo: {
     height: 35,
@@ -24,8 +29,10 @@ export const STYLES = {
     resizeMode: "contain",
   },
   headerLogo: {
+    width: 70,
     height: 25,
     resizeMode: "contain",
+    marginLeft: 6,
   },
   text: {
     fontSize: 16,
@@ -55,6 +62,6 @@ export const STYLES = {
   },
 };
 
-const appTheme = { COLORS, STYLES };
+const appTheme = { COLORS, STYLES, FOITI_CONTS };
 
 export default appTheme;
