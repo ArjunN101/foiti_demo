@@ -11,7 +11,7 @@ import { SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, FOITI_CONTS } from "resources";
 
 const UserDetails = () => {
-  const [isFollowed, setIsFollowed] = useState(true);
+  const [isFollowed, setIsFollowed] = useState(false);
   return (
     <View
       style={{

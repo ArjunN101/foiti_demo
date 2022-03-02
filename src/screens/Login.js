@@ -14,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const signIn = () => {
-    navigation.navigate("Welcome");
+    navigation.navigate("StackNavigation");
   };
 
   return (

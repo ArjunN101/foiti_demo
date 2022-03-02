@@ -1,4 +1,10 @@
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { images, STYLES, COLORS } from "resources";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +18,7 @@ const HomeHeader = () => {
       </View>
 
       <View style={styles.iconContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Search")}>
           <Ionicons name="search-outline" style={styles.icons} />
         </TouchableOpacity>
 
@@ -35,7 +41,7 @@ export default HomeHeader;
 
 const styles = StyleSheet.create({
   header: {
-    width: "100%",
+    width: Dimensions.get("window").width,
     flexDirection: "row",
     paddingVertical: 14,
     paddingHorizontal: 10,
@@ -52,8 +58,11 @@ const styles = StyleSheet.create({
   },
 
   icons: {
+    zIndex: 40,
+    elevation: 10,
     fontSize: 25,
-    color: COLORS.foitiGrey,
+    // color: COLORS.foitiGrey,
+    color: "#000",
     marginLeft: 20,
   },
 });

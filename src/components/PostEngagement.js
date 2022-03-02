@@ -62,11 +62,15 @@ const PostEngagement = () => {
               name={saved ? "bookmark" : "bookmark-outline"}
               style={[styles.icons, styles.blackIconColor]}
             />
-            {/* <Ionicons name="bookmark-outline" style={styles.icons} />
-            <Ionicons name="bookmark" style={styles.icons} /> */}
           </TouchableWithoutFeedback>
         </View>
       </View>
+      {/* <View style={{ flexDirection: "row", paddingVertical: 4 }}>
+        <Text style={styles.comments_Likes}>84 Likes</Text>
+        <Text style={[styles.comments_Likes, { marginLeft: 15 }]}>
+          32 Comments
+        </Text>
+      </View> */}
     </View>
   );
 };
@@ -91,5 +95,9 @@ const styles = StyleSheet.create({
   },
   blackIconColor: {
     color: COLORS.foitiGrey,
+  },
+  comments_Likes: {
+    color: COLORS.foitiGrey,
+    fontSize: 12,
   },
 });

@@ -6,14 +6,19 @@ import {
   View,
   Dimensions,
   TouchableWithoutFeedback,
+  Animated,
 } from "react-native";
-import React from "react";
-import tw from "twrnc";
+import React, { useRef } from "react";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import { COLORS, FOITI_CONTS } from "../resources/theme";
 
 import HomeHeader from "../components/HomeHeader";
+import PlaceComponent from "../components/PlaceComponent";
 const windowWidth = Dimensions.get("window").width;
+import { getCloser } from "../utils/getCloser";
+
+const { diffClamp } = Animated;
+const headerHeight = 55;
 
 const Explore = () => {
   const DATA = [
@@ -97,55 +102,87 @@ const Explore = () => {
     },
   ];
 
+  //CODE FOR ANIMATING HEARDER COMPONENT START
+  const ref = useRef(null);
+  const scrollY = useRef(new Animated.Value(0));
+
+  const handleScroll = Animated.event(
+    [
+      {
+        nativeEvent: {
+          contentOffset: {
+            y: scrollY.current,
+          },
+        },
+      },
+    ],
+    { useNativeDriver: true }
+  );
+
+  const scrollYClamped = diffClamp(scrollY.current, 0, headerHeight);
+
+  const translateY = scrollYClamped.interpolate({
+    inputRange: [0, headerHeight],
+    outputRange: [0, -headerHeight],
+  });
+
+  const translateYNumber = useRef();
+
+  translateY.addListener(({ value }) => {
+    translateYNumber.current = value;
+  });
+
+  const handleSnap = ({ nativeEvent }) => {
+    const offsetY = nativeEvent.contentOffset.y;
+    if (
+      !(
+        translateYNumber.current === 0 ||
+        translateYNumber.current === -headerHeight
+      )
+    ) {
+      if (ref.current) {
+        ref.current.scrollToOffset({
+          offset:
+            getCloser(translateYNumber.current, -headerHeight, 0) ===
+            -headerHeight
+              ? offsetY + headerHeight / 2
+              : offsetY - headerHeight / 2,
+        });
+      }
+    }
+  };
+  //CODE FOR ANIMATING HEARDER COMPONENT END
+
   const Item = ({ title }) => (
     <View style={styles.item}>
       <Text style={styles.title}>{title}</Text>
     </View>
   );
 
-  // const renderItem = ({ item }) => <Item title={item.title} />;
-  const renderItem = ({ item }) => (
-    <View>
-      <TouchableWithoutFeedback>
-        <View>
-          <Image source={{ uri: `${item.uri}` }} style={styles.image} />
-          <View style={styles.locationName}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <SimpleLineIcons
-                name="location-pin"
-                style={{ color: "#fff", fontSize: 12 }}
-              />
-              <View style={{ marginLeft: 4 }}>
-                <Text numberOfLines={1} style={{ color: "#fff", fontSize: 10 }}>
-                  {item.name}
-                </Text>
-                <Text
-                  numberOfLines={1}
-                  style={{ color: "#fff", fontSize: 8, lineHeight: 8 }}
-                >
-                  {item.location}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-  );
-
   return (
-    <View style={tw`bg-white flex-1`}>
-      {/* <HomeHeader /> */}
+    <View style={{ backgroundColor: "white" }}>
+      <Animated.View
+        style={[styles.haderPosition, { transform: [{ translateY }] }]}
+      >
+        <HomeHeader />
+      </Animated.View>
       <View style={{ paddingHorizontal: 4 }}>
-        <FlatList
-          ListHeaderComponent={<HomeHeader />}
+        <Animated.FlatList
+          ListHeaderComponent={
+            <View style={{ height: headerHeight, backgroundColor: "#fff" }} />
+          }
+          onScroll={handleScroll} //For hidding header on scroll
+          onMomentumScrollEnd={handleSnap} //For hendling snap
+          showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
             marginBottom: 4,
           }}
+          ref={ref}
           numColumns={2}
           data={DATA}
-          renderItem={renderItem}
+          // renderItem={renderItem}
+          renderItem={(item) => <PlaceComponent item={item.item} />}
           keyExtractor={(item) => item.id}
         />
       </View>
@@ -156,6 +193,14 @@ const Explore = () => {
 export default Explore;
 
 const styles = StyleSheet.create({
+  haderPosition: {
+    flex: 1,
+    position: "absolute",
+    elevation: 4,
+    backgroundColor: "#fff",
+    zIndex: 10,
+    height: headerHeight,
+  },
   locationName: {
     paddingHorizontal: 5,
     paddingVertical: 2,

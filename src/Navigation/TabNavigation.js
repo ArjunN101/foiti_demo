@@ -5,10 +5,12 @@ import HomeScreen from "../screens/Home";
 import Explore from "../screens/Explore";
 import Search from "../screens/Search";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 function HomeNavigation() {
+  const navigation = useNavigation();
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -82,6 +84,12 @@ function HomeNavigation() {
       <Tab.Screen
         name="Search"
         component={Search}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("Search");
+          },
+        })}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {
