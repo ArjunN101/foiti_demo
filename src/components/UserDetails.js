@@ -9,9 +9,13 @@ import {
 import React, { useState } from "react";
 import { SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, FOITI_CONTS } from "resources";
+import CustomText from "./CustomText";
 
 const UserDetails = () => {
   const [isFollowed, setIsFollowed] = useState(false);
+
+  //Sent this const from pops
+  const [isHome, setIsHome] = useState(false);
   return (
     <View
       style={{
@@ -33,35 +37,42 @@ const UserDetails = () => {
             />
           </View>
           <View style={{ paddingLeft: 10 }}>
-            <Text style={styles.name}>Aaranghya Gagan</Text>
-            <Text style={styles.username}>@aaran_officials</Text>
+            {/* <Text style={styles.name}>Aaranghya Gagan</Text> */}
+            <CustomText numberOfLines={1} textType="bold" style={styles.name}>
+              Aaranghya Gagan
+            </CustomText>
+            <Text numberOfLines={1} style={styles.username}>
+              @aaran_officials
+            </Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <View style={styles.alignContent}>
-        <TouchableOpacity
-          onPress={() => {
-            setIsFollowed(!isFollowed);
-          }}
-        >
-          <SimpleLineIcons
-            name={isFollowed ? "user-following" : "user-follow"}
-            style={[
-              isFollowed ? styles.iconColor : styles.blackIconColor,
-              {
-                fontSize: FOITI_CONTS.iconSize,
-              },
-            ]}
-          />
-        </TouchableOpacity>
+      {isHome && (
+        <View style={styles.alignContent}>
+          <TouchableOpacity
+            onPress={() => {
+              setIsFollowed(!isFollowed);
+            }}
+          >
+            <SimpleLineIcons
+              name={isFollowed ? "user-following" : "user-follow"}
+              style={[
+                isFollowed ? styles.iconColor : styles.blackIconColor,
+                {
+                  fontSize: FOITI_CONTS.iconSize,
+                },
+              ]}
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity>
-          <MaterialCommunityIcons
-            name="dots-vertical"
-            style={{ fontSize: 22, paddingLeft: 15, color: COLORS.foitiGrey }}
-          />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="dots-vertical"
+              style={{ fontSize: 22, paddingLeft: 15, color: COLORS.foitiGrey }}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -74,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   name: {
-    fontWeight: "bold",
+    // fontWeight: "bold",
     fontSize: 14,
   },
   username: {

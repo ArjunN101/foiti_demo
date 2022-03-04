@@ -3,6 +3,7 @@ import Welcome from "../screens/Welcome";
 import DrawerNavigation from "./DrawerNavigation";
 import Search from "../screens/Search";
 import Place from "../screens/Place";
+import Post from "../screens/Post";
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,8 @@ export default function StackNavigation() {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Home Navigation" component={DrawerNavigation} />
       <Stack.Screen name="Search" component={Search} />
-      <Stack.Screen name="Place" component={Place} />
+      {/* <Stack.Screen name="Place" component={Place} />
+      <Stack.Screen name="Post" component={Post} /> */}
     </Stack.Navigator>
   );
 }

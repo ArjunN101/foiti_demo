@@ -6,15 +6,22 @@ import {
   Dimensions,
   TouchableWithoutFeedback,
 } from "react-native";
-import React from "react";
+import React, { forwardRef } from "react";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 const windowWidth = Dimensions.get("window").width;
 
-const PlaceComponent = ({ item }) => {
-  console.log(item);
+const BoxPostComponent = ({ item, onPress }) => {
+  const navigation = useNavigation();
+  // const openPlace = () => {
+  //   navigation.navigate("Home Stack", {
+  //     screen: "Post",
+  //     params: { post: item },
+  //   });
+  // };
   return (
     <View>
-      <TouchableWithoutFeedback>
+      <TouchableWithoutFeedback onPress={() => onPress(item)}>
         <View>
           <Image source={{ uri: `${item.uri}` }} style={styles.image} />
           <View style={styles.locationName}>
@@ -42,7 +49,7 @@ const PlaceComponent = ({ item }) => {
   );
 };
 
-export default PlaceComponent;
+export default BoxPostComponent;
 
 const styles = StyleSheet.create({
   locationName: {

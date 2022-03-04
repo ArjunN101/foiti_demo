@@ -1,7 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
-import HomeScreen from "../screens/Home";
+import HomeStackNavigation from "./HomeStackNavigation";
+import ExploreStackNavigation from "./ExploreStackNavigation";
 import Explore from "../screens/Explore";
 import Search from "../screens/Search";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -26,7 +27,7 @@ function HomeNavigation() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackNavigation}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {
@@ -48,7 +49,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="Explore"
-        component={Explore}
+        component={ExploreStackNavigation}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {
@@ -156,8 +157,8 @@ function HomeNavigation() {
         }}
       />
       {/* <Tab.Screen
-        name="Explore"
-        component={DrawerNavigation}
+        name="StackNavigation"
+        component={StackNavigation}
         initialParams={{ screen: "Explore_tab" }}
       /> */}
     </Tab.Navigator>

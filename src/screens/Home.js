@@ -1,49 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { StyleSheet, Text, View, Animated } from "react-native";
 import axios from "axios";
 
 import { COLORS, FOITI_CONTS } from "resources";
-import HomeHeader from "../components/HomeHeader";
+import HomeHeader from "../components/Header/HomeHeader";
 import { DEV_BACKEND_URL } from "@env";
-import SuggestedCreators from "../components/SuggestedCreators";
-import Post from "../components/Post";
+import Post from "../components/Post/Post";
 import { getCloser } from "../utils/getCloser";
+import { DEMOPOSTS } from "../utils/demo";
 
 const { diffClamp } = Animated;
 const headerHeight = 55;
 
 const Home = () => {
-  const DATA = [
-    {
-      uri: "https://images.unsplash.com/photo-1614085101945-74f6dde22e28",
-      caption:
-        "This is what holidays, travels, vacations are about. It is not really rest or even leisure we chase. We strain to renew our capacity to wonder, to shock ourselves into astonishment once again.",
-    },
-    {
-      uri: "https://nypost.com/wp-content/uploads/sites/2/2020/08/new-york-06.jpg?quality=80&strip=all",
-      caption:
-        "Travel as much as you can, travel as far as you can, travel and find yourself.",
-    },
-    {
-      uri: "https://images.unsplash.com/photo-1546412414-e1885259563a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZHViYWl8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      caption:
-        "Travel isn’t always pretty. It isn’t always comfortable. Sometimes it hurts, it even breaks your heart. But that’s okay. The journey changes you; it should change you. It leaves marks on your memory, on your consciousness, on your heart, and on your body. You take something with you. Hopefully, you leave something good behind.",
-    },
-    {
-      uri: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      caption:
-        "I don’t know where I’m going from here but I promise it won’t be boring.",
-    },
-    {
-      uri: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    },
-    {
-      uri: "https://s3-eu-west-1.amazonaws.com/eflanguagesblog/wp-content/uploads/2019/10/17085823/10-things-you-should-know-before-moving-to-New-York_568x464.jpg",
-      caption:
-        "Once the travel bug bites there is no known antidote, and I know that I shall be happily infected until the end of my life.",
-    },
-  ];
-
   //CODE FOR ANIMATING HEARDER COMPONENT START
   const ref = useRef(null);
   const scrollY = useRef(new Animated.Value(0));
@@ -138,10 +107,12 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll} //For hidding header on scroll
         onMomentumScrollEnd={handleSnap} //For hendling snap
-        data={DATA}
+        data={DEMOPOSTS}
         ListHeaderComponent={_renderSuggestionText}
         renderItem={(item) => <Post post={item} />}
-        keyExtractor={(item) => item.index}
+        keyExtractor={(index) => {
+          return index.id;
+        }}
         ref={ref}
       />
       {/* IF USER HAS NOT FOLLOWED OTHER USERS END */}

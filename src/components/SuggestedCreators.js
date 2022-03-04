@@ -64,14 +64,13 @@ const SuggestedCreators = ({ users }) => {
         </Text>
       </View>
       <FlatList
-        // ItemSeparatorComponent={() => (
-        //   <View style={{ width: 10, backgroundColor: "#fff" }} />
-        // )}
         data={users}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={_renderItem}
-        keyExtractor={(index) => 100 + index}
+        keyExtractor={(index) => {
+          return index.id;
+        }}
       />
     </View>
   );

@@ -11,7 +11,6 @@ const { width, height } = Dimensions.get("window");
 
 import { Ionicons } from "@expo/vector-icons";
 import { STYLES, COLORS, FOITI_CONTS } from "resources";
-//Ionicons  - chatbox-outline, heart, heart-outline, share-social-outline, bookmark-outline, bookmark
 
 const PostEngagement = () => {
   const [liked, setLiked] = useState(false);
@@ -27,7 +26,7 @@ const PostEngagement = () => {
   return (
     <View
       style={{
-        flex: 1,
+        // flex: 1,
         paddingVertical: FOITI_CONTS.padding,
         paddingHorizontal: FOITI_CONTS.padding + 5,
       }}
