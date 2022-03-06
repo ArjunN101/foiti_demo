@@ -20,6 +20,7 @@ import {
   Roboto_900Black,
   Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
+import { SafeAreaView } from "react-native";
 
 export default function App() {
   let [fontsLoaded, error] = useFonts({

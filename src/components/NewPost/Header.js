@@ -11,6 +11,8 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
 
+const { width, _ } = Dimensions.get("screen");
+
 const Header = () => {
   const [isActive, setIsActive] = useState(false);
 
@@ -65,6 +67,7 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
+    width,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

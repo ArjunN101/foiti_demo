@@ -3,9 +3,9 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeStackNavigation from "./HomeStackNavigation";
 import ExploreStackNavigation from "./ExploreStackNavigation";
-import NewPostNavigation from "./NewPostNavigation";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
+import NewPost from "../screens/NewPost";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -74,7 +74,13 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="New"
-        component={NewPostNavigation}
+        component={NewPost}
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate("New Post");
+          },
+        })}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
