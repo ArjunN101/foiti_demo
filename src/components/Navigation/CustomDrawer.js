@@ -10,8 +10,10 @@ import {
 import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { COLORS } from "resources";
 import NavButton from "./NavButton";
+import { useNavigation } from "@react-navigation/native";
 
 const CustomDrawer = (props) => {
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1, paddingHorizontal: 10 }}>
       <DrawerContentScrollView {...props}>
@@ -24,7 +26,7 @@ const CustomDrawer = (props) => {
           }}
         >
           <TouchableWithoutFeedback
-            onPress={() => console.log("Profile Pressed")}
+            onPress={() => navigation.navigate("Profile")}
           >
             <View style={{ marginLeft: 10 }}>
               <Image

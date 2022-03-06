@@ -9,7 +9,7 @@ export default function ExploreStackNavigation() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Explore Stack" component={Explore} />
-      <Stack.Screen name="Explore Place" component={Place} />
+      <Stack.Screen name="Place" component={Place} />
       <Stack.Screen name="Explore Post" component={Post} />
     </Stack.Navigator>
   );

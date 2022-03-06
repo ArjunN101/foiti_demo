@@ -6,7 +6,8 @@ const StatusBarHeight = Constants.statusBarHeight;
 
 export const COLORS = {
   foiti: "#E45527",
-  foitiGrey: "#646161",
+  // foitiGrey: "#646161",
+  foitiGrey: "#656565",
   foitiGreyLight: "#C5C5C5",
   foitiBlue: "#1877F2",
   facebook: "#1877F2",
@@ -15,6 +16,7 @@ export const COLORS = {
   foitiDisabled: "#C5C5C5",
   foitiLink: "#00AED4",
   foitiLine: "#E5E5E5",
+  foitiBlack: "#5050505",
 };
 
 export const FOITI_CONTS = {

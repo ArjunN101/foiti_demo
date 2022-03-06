@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
 
-const PostPlaceHeader = ({ title, isProfile }) => {
+const Header = () => {
+  const [isActive, setIsActive] = useState(false);
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -31,37 +33,35 @@ const PostPlaceHeader = ({ title, isProfile }) => {
         >
           <Ionicons name="md-arrow-back" style={styles.icon} />
         </Pressable>
-        <Pressable
+        <Text
           style={{
-            width: Dimensions.get("window").width - 70,
+            fontSize: 20,
+            fontWeight: "bold",
+            marginLeft: 5,
+            color: "#000",
           }}
         >
-          <Text
-            numberOfLines={1}
-            style={{
-              marginLeft: 10,
-              fontSize: 18,
-              fontWeight: "bold",
-              color: COLORS.foitiGrey,
-            }}
-          >
-            {title}
-          </Text>
-        </Pressable>
+          New
+        </Text>
       </View>
-
-      {isProfile && (
-        <View>
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <MaterialCommunityIcons name="dots-vertical" style={styles.icon} />
-          </TouchableOpacity>
-        </View>
-      )}
+      <View>
+        <TouchableOpacity
+          disabled={!isActive}
+          style={[
+            styles.buttonBox,
+            isActive ? styles.activeBackground : styles.inactiveBackground,
+          ]}
+        >
+          <Text style={{ fontSize: 15, fontWeight: "bold", color: "#fff" }}>
+            Post
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-export default PostPlaceHeader;
+export default Header;
 
 const styles = StyleSheet.create({
   container: {
@@ -70,11 +70,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomColor: COLORS.foitiGreyLight,
     borderBottomWidth: 0.2,
-    paddingHorizontal: 12,
-    paddingVertical: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   icon: {
     fontSize: 28,
     color: COLORS.foitiGrey,
+  },
+  activeBackground: {
+    backgroundColor: COLORS.foiti,
+  },
+  inactiveBackground: {
+    backgroundColor: COLORS.foitiGreyLight,
+  },
+  buttonBox: {
+    paddingVertical: 7,
+    paddingHorizontal: 30,
+    borderRadius: 2,
   },
 });

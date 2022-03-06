@@ -13,6 +13,7 @@ const DrawerNavigation = () => {
       drawerType="front"
       screenOptions={{
         headerShown: false,
+        swipeEnabled: false,
       }}
       sceneContainerStyle={{
         paddingTop: 0,

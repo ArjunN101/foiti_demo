@@ -9,13 +9,12 @@ import {
 import React, { useState } from "react";
 import { SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, FOITI_CONTS } from "resources";
-import CustomText from "./CustomText";
 
 const UserDetails = () => {
   const [isFollowed, setIsFollowed] = useState(false);
 
   //Sent this const from pops
-  const [isHome, setIsHome] = useState(false);
+  const [isHome, setIsHome] = useState(true);
   return (
     <View
       style={{
@@ -23,6 +22,7 @@ const UserDetails = () => {
         justifyContent: "space-between",
         padding: FOITI_CONTS.padding,
         paddingLeft: FOITI_CONTS.padding + 5,
+        paddingRight: FOITI_CONTS.padding + 5,
         alignItems: "center",
       }}
     >
@@ -37,10 +37,7 @@ const UserDetails = () => {
             />
           </View>
           <View style={{ paddingLeft: 10 }}>
-            {/* <Text style={styles.name}>Aaranghya Gagan</Text> */}
-            <CustomText numberOfLines={1} textType="bold" style={styles.name}>
-              Aaranghya Gagan
-            </CustomText>
+            <Text style={styles.name}>Aaranghya Gagan</Text>
             <Text numberOfLines={1} style={styles.username}>
               @aaran_officials
             </Text>
@@ -65,12 +62,12 @@ const UserDetails = () => {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <MaterialCommunityIcons
               name="dots-vertical"
               style={{ fontSize: 22, paddingLeft: 15, color: COLORS.foitiGrey }}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       )}
     </View>
@@ -85,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   name: {
-    // fontWeight: "bold",
+    fontWeight: "bold",
     fontSize: 14,
   },
   username: {

@@ -42,27 +42,27 @@ const PostEngagement = () => {
               ]}
             />
           </TouchableWithoutFeedback>
-          <TouchableOpacity>
+          {/* <TouchableOpacity>
             <Ionicons
               name="chatbox-outline"
               style={[styles.icons, styles.blackIconColor]}
             />
-          </TouchableOpacity>
-          <TouchableOpacity>
+          </TouchableOpacity> */}
+          <TouchableOpacity style={{ marginLeft: 20 }}>
             <Ionicons
               name="share-social-outline"
               style={[styles.icons, styles.blackIconColor]}
             />
           </TouchableOpacity>
         </View>
-        <View>
+        {/* <View>
           <TouchableWithoutFeedback onPress={savePress}>
             <Ionicons
               name={saved ? "bookmark" : "bookmark-outline"}
               style={[styles.icons, styles.blackIconColor]}
             />
           </TouchableWithoutFeedback>
-        </View>
+        </View> */}
       </View>
       {/* <View style={{ flexDirection: "row", paddingVertical: 4 }}>
         <Text style={styles.comments_Likes}>84 Likes</Text>
@@ -83,8 +83,9 @@ const styles = StyleSheet.create({
   },
   leftIconContainer: {
     flexDirection: "row",
-    width: "35%",
+    // width: "35%",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   icons: {
     fontSize: 20,

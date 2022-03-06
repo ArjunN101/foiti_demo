@@ -18,6 +18,7 @@ import BoxPostComponent from "../components/Post/BoxPostComponent";
 import { DEMOPOSTS } from "../utils/demo";
 import Image from "react-native-scalable-image";
 import CustomText from "../components/CustomText";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -38,33 +39,47 @@ const PostImage = ({ post }) => (
   </View>
 );
 
-const FlatListHeader = ({ post }) => (
+const FlatListHeader = ({ post, onPressPlace }) => (
   <View>
-    <PostPlaceHeader />
+    <PostPlaceHeader title="Khardungla Pass" isProfile={false} />
     <View style={{ marginLeft: -4, width }}>
       <PostImage post={post} />
     </View>
     <PostEngagement />
+    <View>
+      {post.caption && (
+        <View style={styles.caption}>
+          <Text numberOfLines={5}>
+            {post?.caption} {post?.caption}
+          </Text>
+        </View>
+      )}
+    </View>
     <UserDetails />
 
     <View style={[styles.placeConatiner, { width, marginLeft: -4 }]}>
-      <View style={{ width: width - 160 }}>
-        {/* <Text numberOfLines={1} style={{ fontWeight: "bold" }}>
-          Cherrapunji
-        </Text> */}
-        <CustomText textType="bold" numberOfLines={1}>
-          Cherrapunji
-        </CustomText>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <SimpleLineIcons
-            name="location-pin"
-            style={{ color: COLORS.foitiGrey, fontSize: 9 }}
-          />
-          <Text numberOfLines={1} style={{ fontSize: 12, marginLeft: 3 }}>
-            East Khasi Hills, Shillong, Meghalaya, India
+      <Pressable
+        onPress={onPressPlace}
+        style={{
+          // backgroundColor: "blue",
+          paddingVertical: 5,
+        }}
+      >
+        <View style={{ width: width - 140 }}>
+          <Text numberOfLines={1} style={{ fontWeight: "bold" }}>
+            Living Root Bridge
           </Text>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <SimpleLineIcons
+              name="location-pin"
+              style={{ color: COLORS.foitiGrey, fontSize: 9 }}
+            />
+            <Text numberOfLines={1} style={{ fontSize: 12, marginLeft: 3 }}>
+              East Khasi Hills, Meghalaya, India
+            </Text>
+          </View>
         </View>
-      </View>
+      </Pressable>
       <View>
         <Pressable style={styles.directionContainer}>
           <MaterialCommunityIcons
@@ -140,16 +155,18 @@ const Post = ({ route, navigation }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [noData, setNoData] = useState(false);
 
-  // const openBottomSheet = () => {
-  //   console.log("Bottom Sheet");
-  // };
+  const onPressPlace = () => {
+    navigation.navigate("Place");
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <View>
         <FlatList
           contentContainerStyle={{ paddingHorizontal: 4 }}
-          ListHeaderComponent={<FlatListHeader post={post} />}
+          ListHeaderComponent={
+            <FlatListHeader post={post} onPressPlace={onPressPlace} />
+          }
           showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
@@ -190,7 +207,7 @@ const styles = StyleSheet.create({
   },
   placeConatiner: {
     backgroundColor: "#ededed",
-    paddingVertical: FOITI_CONTS.padding + 2,
+    paddingVertical: FOITI_CONTS.padding - 5,
     paddingHorizontal: FOITI_CONTS.padding + 7,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -216,5 +233,9 @@ const styles = StyleSheet.create({
   },
   buttonContent: {
     color: "#fff",
+  },
+  caption: {
+    paddingHorizontal: FOITI_CONTS.padding + 5,
+    paddingBottom: FOITI_CONTS.padding,
   },
 });

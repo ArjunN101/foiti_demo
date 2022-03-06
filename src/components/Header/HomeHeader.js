@@ -23,14 +23,14 @@ const HomeHeader = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <MaterialCommunityIcons
-            name="comment-text-outline"
-            style={styles.icons}
-          />
+          <Ionicons name="chatbox-ellipses-outline" style={styles.icons} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.openDrawer()}>
-          <MaterialCommunityIcons name="dots-vertical" style={styles.icons} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Drawer Home", { screen: "New" })}
+        >
+          {/* <MaterialCommunityIcons name="dots-vertical" style={styles.icons} /> */}
+          <Ionicons name="add-circle-outline" style={styles.icons} />
         </TouchableOpacity>
       </View>
     </View>

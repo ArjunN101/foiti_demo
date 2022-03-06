@@ -3,7 +3,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeStackNavigation from "./HomeStackNavigation";
 import ExploreStackNavigation from "./ExploreStackNavigation";
-import Explore from "../screens/Explore";
+import NewPostNavigation from "./NewPostNavigation";
+import Profile from "../screens/Profile";
 import Search from "../screens/Search";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -73,7 +74,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="New"
-        component={Search}
+        component={NewPostNavigation}
         options={{
           tabBarIcon: ({ focused }) => {
             return (
@@ -83,7 +84,7 @@ function HomeNavigation() {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name="Search Tab"
         component={Search}
         listeners={() => ({
           tabPress: (e) => {
@@ -116,7 +117,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={Search}
+        component={Profile}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {
