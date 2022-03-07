@@ -1,34 +1,66 @@
 import {
   Dimensions,
+  ImageBackground,
   StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
+  Image,
 } from "react-native";
-import React, { useState } from "react";
-import Image from "react-native-scalable-image";
+import React, { useEffect, useState } from "react";
+// import Image from "react-native-scalable-image";
 import { SimpleLineIcons, Feather } from "@expo/vector-icons";
-import { FOITI_CONTS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { FOITI_CONTS } from "../../resources/theme";
 
 const { width, height } = Dimensions.get("screen");
 
 const ImageContainer = () => {
   const [locationSelected, setLocatonSelected] = useState(true);
+  const [image, setImage] = useState({});
   const navigation = useNavigation();
+  const REDUXDATA = useSelector((state) => state.NEWPLACE);
+
+  const [imageUri, setImageUri] = useState("");
+  const [ratio, setRatio] = useState("");
+  const [imageWidth, setImageWidth] = useState("");
+  const [imageHeight, setImageHeight] = useState("");
+  const [location, setLocation] = useState("");
+
+  useEffect(() => {
+    console.log(REDUXDATA);
+    if (REDUXDATA.images.length > 0) {
+      setImageUri(REDUXDATA.images[0].uri);
+      setImageWidth(parseFloat(REDUXDATA.images[0].width));
+      setImageHeight(parseFloat(REDUXDATA.images[0].height));
+      // const width = parseFloat(REDUXDATA.images[0].width);
+      // const height = parseFloat(REDUXDATA.images[0].height);
+      // const ration1 = width / height;
+      // setRatio(ration1);
+      // setImageWidth(REDUXDATA.images[0].width);
+      // setImageHeight(REDUXDATA.images[0].height);
+    }
+  }, [REDUXDATA]);
+
+  console.log(ratio);
 
   const addLocation = () => {
     navigation.navigate("Add Place Location");
   };
   return (
     <View>
-      <Image
-        width={width}
-        background={true}
+      <ImageBackground
+        style={{
+          width: width,
+          aspectRatio: 1,
+          resizeMode: "contain",
+        }}
         source={{
-          // uri: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1080&q=80",
-          uri: "https://images.unsplash.com/photo-1459787915554-b34915863013?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=333&q=80",
+          uri:
+            imageUri ||
+            "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1080&q=80",
         }}
       >
         {locationSelected ? (
@@ -70,7 +102,7 @@ const ImageContainer = () => {
             </TouchableOpacity>
           </View>
         )}
-      </Image>
+      </ImageBackground>
     </View>
   );
 };

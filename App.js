@@ -2,25 +2,17 @@ import "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Router from "./src/Navigation/Router";
 import AppLoading from "expo-app-loading";
+import store from "./src/Redux/store";
+import { Provider } from "react-redux";
 
 import { STYLES } from "resources";
 
 import {
   useFonts,
-  Roboto_100Thin,
-  Roboto_100Thin_Italic,
-  Roboto_300Light,
-  Roboto_300Light_Italic,
   Roboto_400Regular,
-  Roboto_400Regular_Italic,
-  Roboto_500Medium,
-  Roboto_500Medium_Italic,
   Roboto_700Bold,
-  Roboto_700Bold_Italic,
   Roboto_900Black,
-  Roboto_900Black_Italic,
 } from "@expo-google-fonts/roboto";
-import { SafeAreaView } from "react-native";
 
 export default function App() {
   let [fontsLoaded, error] = useFonts({
@@ -34,9 +26,11 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider style={STYLES.skipStatusBar}>
-      <Router />
-      {/* <StatusBar style="light" /> */}
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider style={STYLES.skipStatusBar}>
+        <Router />
+        {/* <StatusBar style="light" /> */}
+      </SafeAreaProvider>
+    </Provider>
   );
 }

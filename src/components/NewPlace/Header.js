@@ -10,10 +10,14 @@ import React, { useState } from "react";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import { removePlaceData } from "../../Redux/slices/addPlaceSlice";
 
 const { width, _ } = Dimensions.get("screen");
 
 const Header = () => {
+  const reduxNewPlace = useSelector((state) => state.NEWPLACE);
+  const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
 
   const navigation = useNavigation();
@@ -26,11 +30,14 @@ const Header = () => {
             alignItems: "center",
           }}
           onPress={() => {
+            // console.log("Back pressed");
             if (navigation.canGoBack()) {
               navigation.goBack();
             } else {
-              navigation.navigate("Home");
+              navigation.navigate("Home Navigation");
             }
+
+            dispatch(removePlaceData());
           }}
         >
           <Ionicons name="md-arrow-back" style={styles.icon} />

@@ -5,14 +5,70 @@ import HomeStackNavigation from "./HomeStackNavigation";
 import ExploreStackNavigation from "./ExploreStackNavigation";
 import Profile from "../screens/Profile";
 import Search from "../screens/Search";
-import NewPost from "../screens/NewPost";
+import NewPlaceScreen from "../screens/NewPlaceScreen";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addPlaceData } from "../Redux/slices/addPlaceSlice";
+import * as ImagePicker from "expo-image-picker";
 
 const Tab = createBottomTabNavigator();
 
 function HomeNavigation() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  //Image cropper selection
+  let openImagePickerAsync = async () => {
+    try {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: false,
+        exif: true,
+        quality: 1,
+        crop: false,
+      });
+
+      console.log(pickerResult);
+
+      if (pickerResult.cancelled === true) {
+        return true;
+        console.log("Cancled");
+        if (navigation.canGoBack()) {
+          navigation.goBack();
+        } else {
+          navigation.navigate("Home Navigation");
+        }
+      }
+
+      const image = [
+        {
+          uri: pickerResult.uri,
+          width: pickerResult.exif.ImageWidth,
+          height: pickerResult.exif.ImageLength,
+          type: pickerResult.type,
+          coordinates: {
+            lat: pickerResult.exif.GPSLatitude || "",
+            lng: pickerResult.exif.GPSLongitude || "",
+          },
+        },
+      ];
+
+      // console.log(image);
+
+      dispatch(
+        addPlaceData({
+          images: image,
+        })
+      );
+
+      navigation.navigate("New Place");
+    } catch (err) {
+      console.log("Error", err.message);
+    }
+  };
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -74,11 +130,12 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="New"
-        component={NewPost}
+        component={NewPlaceScreen}
         listeners={() => ({
           tabPress: (e) => {
             e.preventDefault();
-            navigation.navigate("New Post");
+            // navigation.navigate("New Place");
+            openImagePickerAsync();
           },
         })}
         options={{

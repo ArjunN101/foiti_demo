@@ -31,7 +31,17 @@ const Post = ({ post }) => {
       <View>
         <UserDetails />
         <Pressable onPress={openPost}>
-          <View style={[!hasSize && { height: 320 }]}>
+          <View
+            style={[
+              !hasSize && { height: 320 },
+              {
+                maxHeight: 600,
+                overflow: "hidden",
+                alignItems: "center",
+                justifyContent: "center",
+              },
+            ]}
+          >
             <Image
               onSize={() => setHasSize(true)}
               width={Dimensions.get("window").width}

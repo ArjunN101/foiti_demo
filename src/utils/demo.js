@@ -68,7 +68,8 @@ export const DEMOUSERS = [
 export const DEMOPOSTS = [
   {
     id: "1",
-    uri: "https://images.unsplash.com/photo-1614085101945-74f6dde22e28",
+    // uri: "https://images.unsplash.com/photo-1614085101945-74f6dde22e28",
+    uri: "https://media.gettyimages.com/photos/vertical-image-of-a-giraffe-facing-forward-picture-id1175124165?s=2048x2048",
     caption:
       "This is what holidays, travels, vacations are about. It is not really rest or even leisure we chase. We strain to renew our capacity to wonder, to shock ourselves into astonishment once again.",
     name: "Songrampuji Waterfall",

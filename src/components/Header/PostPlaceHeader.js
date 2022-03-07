@@ -25,7 +25,7 @@ const PostPlaceHeader = ({ title, isProfile }) => {
             if (navigation.canGoBack()) {
               navigation.goBack();
             } else {
-              navigation.navigate("Home");
+              navigation.navigate("Home Navigation");
             }
           }}
         >

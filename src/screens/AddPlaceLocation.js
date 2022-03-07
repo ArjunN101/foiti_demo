@@ -81,6 +81,7 @@ const AddPlaceLocation = () => {
               },
             }}
             onPress={(data, details = null) => {
+              console.log(details.place_id);
               let addressComponent = {};
               if (details != null) {
                 setName(details.name);
