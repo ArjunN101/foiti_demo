@@ -9,6 +9,7 @@ const initialState = {
   //   console.log("ImageUri", pickerResult.uri);
 
   name: "",
+  place_id: "",
   images: [],
   fullAddress: "",
   types: [],
@@ -23,8 +24,9 @@ export const addPlaceSlice = createSlice({
   initialState,
   reducers: {
     addPlaceData: (state, action) => {
-      console.log("Action", action);
+      // console.log("Action", action);
       state.name = action.payload.name;
+      state.place_id = action.payload.place_id;
       state.images = action.payload.images;
       state.fullAddress = action.payload.fullAddress;
       state.types = action.payload.types;
@@ -32,10 +34,16 @@ export const addPlaceSlice = createSlice({
       state.coordinates = action.payload.coordinates;
       state.caption = action.payload.caption;
     },
+    updatePlaceData: (state, action) => {
+      for (const key in action.payload) {
+        state[key] = action.payload[key];
+      }
+    },
     removePlaceData: (state) => (state = initialState),
   },
 });
 
-export const { addPlaceData, removePlaceData } = addPlaceSlice.actions;
+export const { addPlaceData, removePlaceData, updatePlaceData } =
+  addPlaceSlice.actions;
 
 export default addPlaceSlice.reducer;

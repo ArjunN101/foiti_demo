@@ -4,6 +4,8 @@ import DrawerNavigation from "./DrawerNavigation";
 import Search from "../screens/Search";
 import NewPlaceScreen from "../screens/NewPlaceScreen";
 import AddPlaceLocation from "../screens/AddPlaceLocation";
+import Review from "../screens/Review";
+import EditProfile from "../screens/EditProfile";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +17,8 @@ export default function StackNavigation() {
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="New Place" component={NewPlaceScreen} />
       <Stack.Screen name="Add Place Location" component={AddPlaceLocation} />
+      <Stack.Screen name="Review" component={Review} />
+      <Stack.Screen name="Edit Profile" component={EditProfile} />
     </Stack.Navigator>
   );
 }

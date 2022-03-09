@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   },
   richEditor: {
     width: width - 72,
-    // height: 200,
-    height: 50,
+    height: 200,
+    // height: 50,
     borderColor: COLORS.foitiGreyLight,
     borderWidth: 0.3,
     marginLeft: 10,

@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 import HomeStackNavigation from "./HomeStackNavigation";
 import ExploreStackNavigation from "./ExploreStackNavigation";
-import Profile from "../screens/Profile";
+import OwnProfile from "../screens/OwnProfile";
 import Search from "../screens/Search";
 import NewPlaceScreen from "../screens/NewPlaceScreen";
 import { Image, StyleSheet, Text, View } from "react-native";
@@ -23,14 +23,14 @@ function HomeNavigation() {
   let openImagePickerAsync = async () => {
     try {
       let pickerResult = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: false,
         exif: true,
         quality: 1,
         crop: false,
       });
 
-      console.log(pickerResult);
+      // console.log(pickerResult);
 
       if (pickerResult.cancelled === true) {
         return true;
@@ -180,7 +180,7 @@ function HomeNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={OwnProfile}
         options={{
           tabBarLabel: ({ focused }) => {
             if (focused) {

@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
@@ -15,33 +15,33 @@ import { removePlaceData } from "../../Redux/slices/addPlaceSlice";
 
 const { width, _ } = Dimensions.get("screen");
 
-const Header = () => {
+const Header = ({
+  activeStatus,
+  backPressed,
+  onPost,
+  title = "New",
+  backStatus = true,
+}) => {
   const reduxNewPlace = useSelector((state) => state.NEWPLACE);
   const dispatch = useDispatch();
   const [isActive, setIsActive] = useState(false);
 
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Pressable
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-          onPress={() => {
-            // console.log("Back pressed");
-            if (navigation.canGoBack()) {
-              navigation.goBack();
-            } else {
-              navigation.navigate("Home Navigation");
-            }
-
-            dispatch(removePlaceData());
-          }}
-        >
-          <Ionicons name="md-arrow-back" style={styles.icon} />
-        </Pressable>
+        {backStatus && (
+          <Pressable
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+            onPress={backPressed}
+          >
+            <Ionicons name="md-arrow-back" style={styles.icon} />
+          </Pressable>
+        )}
         <Text
           style={{
             fontSize: 20,
@@ -50,15 +50,16 @@ const Header = () => {
             color: "#000",
           }}
         >
-          New
+          {title}
         </Text>
       </View>
       <View>
         <TouchableOpacity
-          disabled={!isActive}
+          onPress={onPost}
+          disabled={!activeStatus}
           style={[
             styles.buttonBox,
-            isActive ? styles.activeBackground : styles.inactiveBackground,
+            activeStatus ? styles.activeBackground : styles.inactiveBackground,
           ]}
         >
           <Text style={{ fontSize: 15, fontWeight: "bold", color: "#fff" }}>

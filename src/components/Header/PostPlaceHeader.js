@@ -11,7 +11,7 @@ import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../resources/theme";
 import { useNavigation } from "@react-navigation/native";
 
-const PostPlaceHeader = ({ title, isProfile }) => {
+const PostPlaceHeader = ({ title, isProfile, isEdit = false }) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>

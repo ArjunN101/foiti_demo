@@ -1,10 +1,13 @@
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { COLORS } from "../resources/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useNavigation } from "@react-navigation/native";
 import { GOOGLE_PLACES_API } from "@env";
+import { useDispatch } from "react-redux";
+import { addPlaceData, updatePlaceData } from "../Redux/slices/addPlaceSlice";
+import { addAddress } from "../Redux/slices/addAddressSlice";
 
 const { width, _ } = Dimensions.get("screen");
 
@@ -24,14 +27,18 @@ const SuggestionRow = ({ item }) => {
   );
 };
 
-const AddPlaceLocation = () => {
+const AddPlaceLocation = ({ route }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [prevScreen, setPrevScreen] = useState("");
   const refInput = useRef(null);
-  const [name, setName] = useState("");
-  const [fullAddress, setFullAddress] = useState("");
-  const [types, setTypes] = useState([]);
-  const [address, setAddress] = useState({});
-  const [coordinates, setCoordinates] = useState({});
+
+  useLayoutEffect(() => {
+    setPrevScreen(route.params?.prev_screen);
+  }, []);
+
+  console.log(prevScreen);
+  // addAddress;
 
   //   useEffect(() => {
   //     if (refInput.current.isFocused() === false) {
@@ -40,6 +47,11 @@ const AddPlaceLocation = () => {
   //       return;
   //     }
   //   }, []);
+
+  const notFound = () => {
+    console.warn("No result found");
+    navigation.goBack();
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
@@ -79,29 +91,52 @@ const AddPlaceLocation = () => {
                 height: 0,
                 backgroundColor: "#c8c7cc",
               },
+              loader: {
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                height: 20,
+              },
             }}
             onPress={(data, details = null) => {
-              console.log(details.place_id);
               let addressComponent = {};
               if (details != null) {
-                setName(details.name);
-                setFullAddress(details.formatted_address);
-                setTypes(details.types);
                 details.address_components.map((address) => {
                   addressComponent[address.types[0]] = address.long_name;
                 });
-                setAddress(addressComponent);
-                setCoordinates(details.geometry.location);
+
+                const newPlace = {
+                  name: details.name,
+                  place_id: details.place_id,
+                  fullAddress: details.formatted_address,
+                  types: details.types,
+                  address: addressComponent,
+                  coordinates: details.geometry.location,
+                };
+                if (prevScreen == "addAddress") {
+                  // const address = `${addressComponent.administrative_area_level_2}, ${addressComponent.administrative_area_level_1}, ${addressComponent.country}`;
+                  dispatch(
+                    addAddress({
+                      name: details.name || "",
+                      country: addressComponent.country,
+                    })
+                  );
+                } else {
+                  dispatch(updatePlaceData(newPlace));
+                }
               }
 
-              //   navigation.navigate("Expo Image Crop Picker");
+              navigation.goBack();
             }}
             fetchDetails={true}
             enablePoweredByContainer={false}
+            onFail={() => navigation.goBack()}
+            onTimeout={() => navigation.goBack()}
+            onNotFound={notFound}
             query={{
               key: `${GOOGLE_PLACES_API}`,
               language: "en",
-              //   types: "(cities)",
+              types: prevScreen == "addAddress" ? "(cities)" : "",
+              // types: "(cities)",
             }}
             renderRow={(item) => <SuggestionRow item={item} />}
             // currentLocation={true}
