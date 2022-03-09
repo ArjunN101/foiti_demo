@@ -6,6 +6,8 @@ import NewPlaceScreen from "../screens/NewPlaceScreen";
 import AddPlaceLocation from "../screens/AddPlaceLocation";
 import Review from "../screens/Review";
 import EditProfile from "../screens/EditProfile";
+import Notification from "../screens/Notification";
+import Settings from "../screens/Settings";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +21,8 @@ export default function StackNavigation() {
       <Stack.Screen name="Add Place Location" component={AddPlaceLocation} />
       <Stack.Screen name="Review" component={Review} />
       <Stack.Screen name="Edit Profile" component={EditProfile} />
+      <Stack.Screen name="Notification" component={Notification} />
+      <Stack.Screen name="Settings" component={Settings} />
     </Stack.Navigator>
   );
 }

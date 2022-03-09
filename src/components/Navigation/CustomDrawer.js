@@ -61,12 +61,12 @@ const CustomDrawer = (props) => {
           <NavButton
             icon="bell"
             title="Notifications"
-            onTab={() => console.log("Pressed3")}
+            onTab={() => navigation.navigate("Notification")}
           />
           <NavButton
             icon="settings"
             title="Settings"
-            onTab={() => console.log("Pressed4")}
+            onTab={() => navigation.navigate("Settings")}
           />
         </View>
         <View

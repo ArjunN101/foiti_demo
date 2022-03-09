@@ -1,17 +1,20 @@
 import {
   Dimensions,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import PostPlaceHeader from "../components/Header/PostPlaceHeader";
 import CoverProfile from "../components/Profile/CoverProfile";
 import { COLORS } from "../resources/theme";
-import { RichEditor } from "react-native-pell-rich-editor";
+// import { RichEditor } from "react-native-pell-rich-editor";
+import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
@@ -25,6 +28,12 @@ const EditProfile = () => {
   const [bio, setBio] = useState("");
   const [website, setWebsite] = useState("");
   const [address, setAddress] = useState("");
+  const [coverImage, setCoverImage] = useState({
+    uri: "https://images.unsplash.com/photo-1527856263669-12c3a0af2aa6",
+  });
+  const [profileImage, setProfileImage] = useState({
+    uri: "https://randomuser.me/api/portraits/women/43.jpg",
+  });
 
   const [count, setCount] = useState(0);
 
@@ -48,13 +57,49 @@ const EditProfile = () => {
       .replace("&lt;", "<")
       .replace("&gt;", ">")
       .replace("&amp;", "&");
-    // console.log(noOflLineArr.length);
-
-    // let length = bio.length;
     setCount(bio.length);
   }, [bio]);
 
-  //   console.log(bio);
+  const _handleUsername = (text) => {
+    // setUsername(text.toLowerCase().trim().replace(" ", ""));
+    setUsername(text.trim().replace(" ", ""));
+  };
+
+  const changeImage = async (props) => {
+    // EXPO IMAGE CROP PICKER
+    try {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+        crop: true,
+        aspect: props == "cover" ? [16, 9] : [1, 1],
+      });
+      if (pickerResult.cancelled === true) {
+        return true;
+      }
+      const fileName = pickerResult.uri.substr(
+        pickerResult.uri.lastIndexOf("/") + 1
+      );
+      const nameParts = fileName.split(".");
+      const extention = nameParts[nameParts.length - 1];
+      const img = {
+        name: fileName,
+        type: "image/" + extention,
+        uri:
+          Platform.OS === "ios"
+            ? pickerResult.uri.replace("file://", "")
+            : pickerResult.uri,
+      };
+      if (props == "cover") {
+        setCoverImage(img);
+      } else {
+        setProfileImage(img);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -65,11 +110,18 @@ const EditProfile = () => {
             isProfile={false}
             // isEdit={true}
           />
-          <CoverProfile isOwnProfile={true} isEdit={true} />
+          <CoverProfile
+            isOwnProfile={true}
+            isEdit={true}
+            profileImg={profileImage}
+            coverImg={coverImage}
+            selectImage={changeImage}
+          />
           <View style={styles.inputContainer}>
             <View style={styles.inputBox}>
               <Text style={styles.label}>Name</Text>
               <TextInput
+                value={name}
                 style={styles.input}
                 onChangeText={(text) => setName(text)}
               />
@@ -77,8 +129,10 @@ const EditProfile = () => {
             <View style={styles.inputBox}>
               <Text style={styles.label}>Username</Text>
               <TextInput
+                autoCapitalize="none"
+                value={username}
                 style={styles.input}
-                onChangeText={(text) => setUsername(text)}
+                onChangeText={_handleUsername}
               />
             </View>
             <View style={styles.inputBox}>
@@ -107,15 +161,20 @@ const EditProfile = () => {
               <TextInput
                 style={styles.input}
                 onChangeText={(text) => setWebsite(text)}
+                keyboardType="url"
               />
             </View>
             <View style={styles.inputBox}>
               <Text style={styles.label}>Address</Text>
-              <TextInput
-                style={styles.input}
-                value={address}
-                onFocus={navigateToAddLocation}
-              />
+              <TouchableWithoutFeedback onPress={navigateToAddLocation}>
+                <Text style={[styles.input, { marginTop: 8 }]}>{address}</Text>
+                {/* <TextInput
+                  style={styles.input}
+                  value={address}
+                  // editable={false}
+                  // onFocus={navigateToAddLocation}
+                /> */}
+              </TouchableWithoutFeedback>
             </View>
           </View>
         </View>

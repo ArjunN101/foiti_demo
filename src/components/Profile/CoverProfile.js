@@ -13,7 +13,15 @@ import { Ionicons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("screen");
 
-const CoverProfile = ({ isOwnProfile = false, isEdit = false }) => {
+const CoverProfile = ({
+  isOwnProfile = false,
+  isEdit = false,
+  profileImg = { uri: "https://randomuser.me/api/portraits/women/43.jpg" },
+  coverImg = {
+    uri: "https://images.unsplash.com/photo-1527856263669-12c3a0af2aa6",
+  },
+  selectImage,
+}) => {
   const navigation = useNavigation();
 
   const showEditProfile = () => {
@@ -24,14 +32,17 @@ const CoverProfile = ({ isOwnProfile = false, isEdit = false }) => {
       <View style={styles.coverConatiner}>
         <Image
           source={{
-            uri: "https://images.unsplash.com/photo-1527856263669-12c3a0af2aa6",
+            uri: coverImg.uri,
           }}
           style={styles.cover}
-          // blurRadius={isEdit ? 2 : 0}
         />
         {isEdit && (
           <View style={styles.overlayContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                selectImage("cover");
+              }}
+            >
               <Ionicons name="camera-outline" style={styles.changeIcon} />
             </TouchableOpacity>
           </View>
@@ -42,7 +53,7 @@ const CoverProfile = ({ isOwnProfile = false, isEdit = false }) => {
           <View style={[isEdit ? styles.profileBoxEdit : styles.profileBox]}>
             <Image
               source={{
-                uri: "https://randomuser.me/api/portraits/women/43.jpg",
+                uri: profileImg.uri,
               }}
               style={styles.profile}
               // blurRadius={isEdit ? 2 : 0}
@@ -50,7 +61,11 @@ const CoverProfile = ({ isOwnProfile = false, isEdit = false }) => {
 
             {isEdit && (
               <View style={styles.overlayContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    selectImage("profile");
+                  }}
+                >
                   <Ionicons name="camera-outline" style={styles.changeIcon} />
                 </TouchableOpacity>
               </View>

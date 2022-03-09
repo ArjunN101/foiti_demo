@@ -7,7 +7,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlaceData, removePlaceData } from "../Redux/slices/addPlaceSlice";
-// import CommentFooter from "../components/NewPost/CommentFooter";
+// import CommentFooter from "../components/NewPlace/CommentFooter";
 
 const NewPlaceScreen = () => {
   const navigation = useNavigation();
