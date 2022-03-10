@@ -8,6 +8,12 @@ import Review from "../screens/Review";
 import EditProfile from "../screens/EditProfile";
 import Notification from "../screens/Notification";
 import Settings from "../screens/Settings";
+import ChangeEmail from "../screens/ChangeEmail";
+import ChangePassword from "../screens/ChangePassword";
+import ChangePhone from "../screens/ChangePhone";
+import MaterialTopNavigation from "./MaterialTopNavigation";
+import Feedback from "../screens/Feedback";
+import HelpSupport from "../screens/HelpSupport";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +29,12 @@ export default function StackNavigation() {
       <Stack.Screen name="Edit Profile" component={EditProfile} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="Change Email" component={ChangeEmail} />
+      <Stack.Screen name="Change Password" component={ChangePassword} />
+      <Stack.Screen name="Change Phone" component={ChangePhone} />
+      <Stack.Screen name="FollowDetails" component={MaterialTopNavigation} />
+      <Stack.Screen name="Feedback" component={Feedback} />
+      <Stack.Screen name="HelpSupport" component={HelpSupport} />
     </Stack.Navigator>
   );
 }

@@ -10,11 +10,18 @@ import React, { useState } from "react";
 import { SimpleLineIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS, FOITI_CONTS } from "resources";
 
-const UserDetails = () => {
+const UserDetails = ({
+  isFollwerScreen = false,
+  details = {
+    name: "Aaranghya Gagan",
+    userName: "aaran_officials",
+    profileUri: "https://randomuser.me/api/portraits/women/67.jpg",
+  },
+}) => {
   const [isFollowed, setIsFollowed] = useState(false);
 
   //Sent this const from pops
-  const [isHome, setIsHome] = useState(true);
+  const [isHome, setIsHome] = useState(false);
   return (
     <View
       style={{
@@ -31,15 +38,15 @@ const UserDetails = () => {
           <View>
             <Image
               source={{
-                uri: "https://randomuser.me/api/portraits/women/67.jpg",
+                uri: details.profileUri,
               }}
               style={styles.profile}
             />
           </View>
           <View style={{ paddingLeft: 10 }}>
-            <Text style={styles.name}>Aaranghya Gagan</Text>
+            <Text style={styles.name}>{details.name}</Text>
             <Text numberOfLines={1} style={styles.username}>
-              @aaran_officials
+              @{details.userName}
             </Text>
           </View>
         </View>
@@ -68,6 +75,14 @@ const UserDetails = () => {
               style={{ fontSize: 22, paddingLeft: 15, color: COLORS.foitiGrey }}
             />
           </TouchableOpacity> */}
+        </View>
+      )}
+
+      {isFollwerScreen && (
+        <View style={styles.alignContent}>
+          <TouchableOpacity style={styles.followBox}>
+            <Text style={styles.followText}>Follow</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -99,5 +114,12 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 20,
+  },
+  followBox: {
+    borderWidth: 0.5,
+    paddingHorizontal: 25,
+    paddingVertical: 8,
+    borderColor: COLORS.foitiGrey,
+    borderRadius: 3,
   },
 });

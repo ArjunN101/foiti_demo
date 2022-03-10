@@ -1,5 +1,14 @@
-import { Dimensions, FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import {
+  Button,
+  Dimensions,
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { useState } from "react";
 import PostPlaceHeader from "../components/Header/PostPlaceHeader";
 import CoverProfile from "../components/Profile/CoverProfile";
 import Details from "../components/Profile/Details";
@@ -7,10 +16,11 @@ import ProfileNumbers from "../components/Profile/ProfileNumbers";
 import { COLORS } from "../resources/theme";
 import { DEMOPOSTS } from "../utils/demo";
 import BoxPostComponent from "../components/Post/BoxPostComponent";
+import ModalComponent from "../components/ModalComponent";
 
 const { width, height } = Dimensions.get("screen");
 
-const FlatListHeader = () => (
+const FlatListHeader = ({ showInstruction }) => (
   <View>
     <View style={styles.subHeaderContainer}>
       <View style={{ marginLeft: -4, width }}>
@@ -18,7 +28,7 @@ const FlatListHeader = () => (
         <CoverProfile isOwnProfile={true} />
       </View>
       <View style={{ paddingHorizontal: 5 }}>
-        <Details />
+        <Details showInstruction={showInstruction} />
         <ProfileNumbers />
       </View>
       <View
@@ -38,12 +48,22 @@ const FlatListHeader = () => (
 );
 
 const OwnProfile = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const showInstruction = () => {
+    setModalVisible(true);
+  };
   return (
     <View style={{ flex: 1, backgroundColor: "#fff" }}>
       <View>
         <FlatList
           contentContainerStyle={{ paddingHorizontal: 4 }}
-          ListHeaderComponent={<FlatListHeader />}
+          ListHeaderComponent={
+            <FlatListHeader showInstruction={showInstruction} />
+          }
           showsVerticalScrollIndicator={false}
           columnWrapperStyle={{
             justifyContent: "space-between",
@@ -58,9 +78,13 @@ const OwnProfile = () => {
             />
           )}
           keyExtractor={(item) => item.id}
-          //   ListFooterComponent={!noData ? <ViewAllPotos /> : <View />}
         />
       </View>
+      <ModalComponent
+        body="Foiti Ambassador badge is a special honor awarded for actively contributing to the community."
+        closeModal={closeModal}
+        modalVisible={modalVisible}
+      />
     </View>
   );
 };

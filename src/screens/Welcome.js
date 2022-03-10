@@ -40,8 +40,9 @@ const Welcome = () => {
     navigation.navigate("Home Navigation");
   };
 
+  // tw`flex-1 bg-white px-10`,
   return (
-    <View style={[tw`flex-1 bg-white px-10`, { color: COLORS.foitiGrey }]}>
+    <View style={tw`flex-1 bg-white px-10`}>
       <View
         style={{
           justifyContent: "center",

@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.2,
     paddingHorizontal: 12,
     paddingVertical: 12,
+    backgroundColor: "#fff",
   },
   icon: {
     fontSize: 28,

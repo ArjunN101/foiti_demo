@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { StyleSheet, Text, View, Animated } from "react-native";
 import axios from "axios";
 
@@ -8,11 +8,22 @@ import { DEV_BACKEND_URL } from "@env";
 import Post from "../components/Post/Post";
 import { getCloser } from "../utils/getCloser";
 import { DEMOPOSTS } from "../utils/demo";
+import ModalComponent from "../components/ModalComponent";
 
 const { diffClamp } = Animated;
 const headerHeight = 55;
 
 const Home = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const messagePressed = () => {
+    setModalVisible(true);
+  };
+
   //CODE FOR ANIMATING HEARDER COMPONENT START
   const ref = useRef(null);
   const scrollY = useRef(new Animated.Value(0));
@@ -99,7 +110,7 @@ const Home = () => {
       <Animated.View
         style={[styles.haderPosition, { transform: [{ translateY }] }]}
       >
-        <HomeHeader />
+        <HomeHeader messagePressed={messagePressed} />
       </Animated.View>
 
       {/* IF USER HAS NOT FOLLOWED OTHER USERS START */}
@@ -119,6 +130,16 @@ const Home = () => {
 
       {/* IF USER HAS FOLLWED OTHER USERS START */}
       {/* IF USER HAS FOLLWED OTHER USERS END */}
+
+      <View>
+        <ModalComponent
+          header={true}
+          title="Coming Soon"
+          body="We are very excited about this feature and working very hard as well. When it's ready, it's gonna be awesome."
+          closeModal={closeModal}
+          modalVisible={modalVisible}
+        />
+      </View>
     </View>
   );
 };

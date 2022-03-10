@@ -8,8 +8,9 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { Rating, RatingProps, AirbnbRating } from "react-native-elements";
+import { Rating } from "react-native-elements";
 import { COLORS } from "../../resources/theme";
+import images from "../../resources/images";
 
 const RatingReview = () => {
   return (
@@ -28,6 +29,7 @@ const RatingReview = () => {
               style={{ BackgroundColor: "#fff" }}
               readonly
               imageSize={20}
+              // ratingImage={images.star}
             />
           </View>
           <Text>(2,531)</Text>

@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useNavigation } from "@react-navigation/native";
 
 const ProfileNumbers = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.numberContainer}>
@@ -12,13 +14,29 @@ const ProfileNumbers = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.numberContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation
+              // .setOptions({ title: "Olivia Atkinson" })
+              .navigate("FollowDetails", {
+                name: "Olivia Atkinson",
+                initialRoute: "Followers",
+              })
+          }
+        >
           <Text style={styles.number}>2155</Text>
           <Text>Followers</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.numberContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("FollowDetails", {
+              name: "Olivia Atkinson",
+              initialRoute: "Following",
+            })
+          }
+        >
           <Text style={styles.number}>155</Text>
           <Text>Following</Text>
         </TouchableOpacity>

@@ -2,6 +2,7 @@ export const DEMOUSERS = [
   {
     id: "1",
     name: "Josefa Flores",
+    username: "josefaFlores",
     uri: "https://randomuser.me/api/portraits/women/43.jpg",
     verified: true,
   },
@@ -9,12 +10,14 @@ export const DEMOUSERS = [
   {
     id: "2",
     name: "Amber Wood",
+    username: "woodamber",
     uri: "https://randomuser.me/api/portraits/women/67.jpg",
     verified: false,
   },
   {
     id: "3",
     name: "Maryam Lavik",
+    username: "lavikmaryamOfficials",
     uri: "https://randomuser.me/api/portraits/women/23.jpg",
     verified: true,
   },
@@ -22,6 +25,7 @@ export const DEMOUSERS = [
   {
     id: "4",
     name: "Dimas Nascimento",
+    username: "nascimentomas",
     uri: "https://randomuser.me/api/portraits/men/39.jpg",
     verified: true,
   },
@@ -29,6 +33,7 @@ export const DEMOUSERS = [
   {
     id: "5",
     name: "Susan Palmer",
+    username: "supalmer",
     uri: "https://randomuser.me/api/portraits/women/36.jpg",
     verified: false,
   },
@@ -36,30 +41,35 @@ export const DEMOUSERS = [
   {
     id: "6",
     name: "Olivia Brown",
+    username: "oliviabrown",
     uri: "https://randomuser.me/api/portraits/women/15.jpg",
     verified: false,
   },
   {
     id: "7",
     name: "Dave Jacobs",
+    username: "davejacobs",
     uri: "https://randomuser.me/api/portraits/men/81.jpg",
     verified: true,
   },
   {
     id: "8",
     name: "Holly Ryan",
+    username: "hollyan",
     uri: "https://randomuser.me/api/portraits/women/21.jpg",
     verified: true,
   },
   {
     id: "9",
     name: "Nella Lampo",
+    username: "lamponella321",
     uri: "https://randomuser.me/api/portraits/women/15.jpg",
     verified: true,
   },
   {
     id: "10",
     name: "Sharlene Phillips",
+    username: "phillipsofficials",
     uri: "https://randomuser.me/api/portraits/women/11.jpg",
     verified: false,
   },

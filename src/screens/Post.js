@@ -122,32 +122,29 @@ const ViewAllPotos = () => (
     <TouchableOpacity style={styles.footerButton}>
       <SimpleLineIcons
         name="camera"
-        style={{ color: "#fff", fontSize: 14, marginRight: 8 }}
+        style={{ color: COLORS.foitiGrey, fontSize: 14, marginRight: 8 }}
       />
-      {/* <Text style={[{ color: "#fff", fontSize: 16 }, { fontWeight: "bold" }]}>
+      <Text style={[{ color: COLORS.foitiGrey, fontSize: 14 }]}>
         View All Photos
-      </Text> */}
-      <CustomText textType="bold" style={[{ color: "#fff", fontSize: 14 }]}>
-        View All Photos
-      </CustomText>
+      </Text>
     </TouchableOpacity>
   </View>
 );
 
-const BottomSheetComponent = ({ isVisible }) => {
-  <BottomSheet modalProps={{}} isVisible={isVisible}>
-    <View>
-      <Touchable>
-        <Text>Share</Text>
-      </Touchable>
-    </View>
-    <View>
-      <Touchable>
-        <Text>Report</Text>
-      </Touchable>
-    </View>
-  </BottomSheet>;
-};
+// const BottomSheetComponent = ({ isVisible }) => {
+//   <BottomSheet modalProps={{}} isVisible={isVisible}>
+//     <View>
+//       <Touchable>
+//         <Text>Share</Text>
+//       </Touchable>
+//     </View>
+//     <View>
+//       <Touchable>
+//         <Text>Report</Text>
+//       </Touchable>
+//     </View>
+//   </BottomSheet>;
+// };
 
 const Post = ({ route, navigation }) => {
   const { post } = route.params;
@@ -226,9 +223,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.foitiGrey,
     width: Dimensions.get("window").width / 2,
-    paddingVertical: 6,
+    borderColor: COLORS.foitiGrey,
+    borderWidth: 0.8,
+    borderRadius: 2,
+    paddingVertical: 7,
     borderRadius: 2,
   },
   buttonContent: {

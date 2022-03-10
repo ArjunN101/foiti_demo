@@ -1,9 +1,8 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Header from "../components/NewPlace/Header";
 import ImageContainer from "../components/NewPlace/ImageContainer";
 import CaptionEditior from "../components/NewPlace/CaptionEditior";
-import * as ImagePicker from "expo-image-picker";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlaceData, removePlaceData } from "../Redux/slices/addPlaceSlice";

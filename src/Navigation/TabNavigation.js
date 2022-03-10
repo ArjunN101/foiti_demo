@@ -9,7 +9,7 @@ import NewPlaceScreen from "../screens/NewPlaceScreen";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addPlaceData } from "../Redux/slices/addPlaceSlice";
 import * as ImagePicker from "expo-image-picker";
 
@@ -30,16 +30,8 @@ function HomeNavigation() {
         crop: false,
       });
 
-      // console.log(pickerResult);
-
       if (pickerResult.cancelled === true) {
         return true;
-        console.log("Cancled");
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        } else {
-          navigation.navigate("Home Navigation");
-        }
       }
 
       const image = [
@@ -54,8 +46,6 @@ function HomeNavigation() {
           },
         },
       ];
-
-      // console.log(image);
 
       dispatch(
         addPlaceData({

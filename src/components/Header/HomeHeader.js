@@ -8,9 +8,65 @@ import {
 import { images, STYLES, COLORS } from "resources";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
-const HomeHeader = () => {
+import { addPlaceData } from "../../Redux/slices/addPlaceSlice";
+import * as ImagePicker from "expo-image-picker";
+
+const HomeHeader = ({ messagePressed }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  //Image cropper selection
+  let openImagePickerAsync = async () => {
+    try {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        exif: true,
+        quality: 1,
+        crop: false,
+      });
+
+      // console.log(pickerResult);
+
+      if (pickerResult.cancelled === true) {
+        return true;
+        // console.log("Cancled");
+        // if (navigation.canGoBack()) {
+        //   navigation.goBack();
+        // } else {
+        //   navigation.navigate("Home Navigation");
+        // }
+      }
+
+      const image = [
+        {
+          uri: pickerResult.uri,
+          width: pickerResult.exif.ImageWidth,
+          height: pickerResult.exif.ImageLength,
+          type: pickerResult.type,
+          coordinates: {
+            lat: pickerResult.exif.GPSLatitude || "",
+            lng: pickerResult.exif.GPSLongitude || "",
+          },
+        },
+      ];
+
+      // console.log(image);
+
+      dispatch(
+        addPlaceData({
+          images: image,
+        })
+      );
+
+      navigation.navigate("New Place");
+    } catch (err) {
+      console.log("Error", err.message);
+    }
+  };
+
   return (
     <View style={[styles.header]}>
       <View>
@@ -22,13 +78,11 @@ const HomeHeader = () => {
           <Ionicons name="search-outline" style={styles.icons} />
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={messagePressed}>
           <Ionicons name="chatbox-ellipses-outline" style={styles.icons} />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Drawer Home", { screen: "New" })}
-        >
+        <TouchableOpacity onPress={openImagePickerAsync}>
           {/* <MaterialCommunityIcons name="dots-vertical" style={styles.icons} /> */}
           <Ionicons name="add-circle-outline" style={styles.icons} />
         </TouchableOpacity>

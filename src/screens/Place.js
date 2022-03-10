@@ -12,13 +12,18 @@ import {
 } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
 
+import { addPlaceData } from "../Redux/slices/addPlaceSlice";
 import { COLORS } from "../resources/theme";
 import PostPlaceHeader from "../components/Header/PostPlaceHeader";
 import MapContainer from "../components/Place/MapContainer";
 import NameComponent from "../components/Place/NameComponent";
 import RatingReview from "../components/Place/RatingReview";
 import { DEMOPOSTS } from "../utils/demo";
+
 const windowWidth = Dimensions.get("window").width;
 
 const FlatListHeader = () => {
@@ -52,7 +57,7 @@ const FlatListHeader = () => {
   );
 };
 
-const FlatListFooter = () => (
+const FlatListFooter = ({ addPhoto }) => (
   <View
     style={{
       paddingVertical: 50,
@@ -64,7 +69,7 @@ const FlatListFooter = () => (
       Looks like this is all there is. Why don't you add yours if you got
     </Text>
     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
-      <TouchableOpacity style={styles.FooterButton}>
+      <TouchableOpacity style={styles.FooterButton} onPress={addPhoto}>
         <Ionicons
           name="add-circle-outline"
           style={{ fontSize: 18, marginRight: 5 }}
@@ -76,6 +81,51 @@ const FlatListFooter = () => (
 );
 
 const Place = () => {
+  //ADD PHTOT FUNCTION START
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  //Image cropper selection
+  const addPhoto = async () => {
+    try {
+      let pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: false,
+        exif: true,
+        quality: 1,
+        crop: false,
+      });
+
+      if (pickerResult.cancelled === true) {
+        return true;
+      }
+
+      const image = [
+        {
+          uri: pickerResult.uri,
+          width: pickerResult.exif.ImageWidth,
+          height: pickerResult.exif.ImageLength,
+          type: pickerResult.type,
+          coordinates: {
+            lat: pickerResult.exif.GPSLatitude || "",
+            lng: pickerResult.exif.GPSLongitude || "",
+          },
+        },
+      ];
+
+      dispatch(
+        addPlaceData({
+          images: image,
+        })
+      );
+
+      navigation.navigate("New Place");
+    } catch (err) {
+      console.log("Error", err.message);
+    }
+  };
+  //ADD PHTOT FUNCTION END
+
   const _renderItem = ({ item }) => (
     <View>
       <TouchableWithoutFeedback>
@@ -101,7 +151,7 @@ const Place = () => {
           data={DEMOPOSTS.slice(0, 3)}
           renderItem={_renderItem}
           keyExtractor={(item) => item.id}
-          ListFooterComponent={<FlatListFooter />}
+          ListFooterComponent={<FlatListFooter addPhoto={addPhoto} />}
         />
       </View>
     </View>
